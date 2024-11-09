@@ -4,6 +4,7 @@ import imgStarfull from "../imgs/star-full.svg";
 
 const StarIcon = ({ coinId }) => {
   const [like, setLike] = useState(false);
+
   useEffect(() => {
     if (window.localStorage.coinList) {
       let favList = window.localStorage.coinList.split(",");
@@ -11,14 +12,14 @@ const StarIcon = ({ coinId }) => {
         setLike(true);
       }
     }
-  });
+  }, []);
 
-  // Logique du local storage
   const idChecker = (id) => {
     let favList = null;
     if (window.localStorage.coinList) {
       favList = window.localStorage.coinList.split(",");
     }
+
     if (favList) {
       if (favList.includes(id)) {
         window.localStorage.coinList = favList.filter((coin) => coin !== id);
@@ -35,8 +36,8 @@ const StarIcon = ({ coinId }) => {
 
   return (
     <img
-      onclick={() => idChecker(coinId)}
-      src={like ? { imgStarfull } : { imgStarEmpty }}
+      onClick={() => idChecker(coinId)}
+      src={like ? imgStarfull : imgStarEmpty}
       alt="icon-star"
     />
   );
