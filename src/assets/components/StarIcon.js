@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import imgStarEmpty from "../imgs/star-empty.svg";
 import imgStarfull from "../imgs/star-full.svg";
 
 const StarIcon = ({ coinId }) => {
-  const [like, setLike] = usestate(false);
-
+  const [like, setLike] = useState(false);
   useEffect(() => {
     if (window.localStorage.coinList) {
       let favList = window.localStorage.coinList.split(",");

@@ -3,21 +3,50 @@ import TableLine from "./TableLine";
 import ToTop from "./ToTop";
 
 const Table = ({ coinsData }) => {
+  const [orderBy, setOrderBy] = useState("");
   const [rangeNumber, setRangeNumber] = useState(100);
-  const [orderBy, setOrderBye] = useState("");
 
   const tableHeader = [
     "Prix",
-    "Market",
+    "MarketCap",
     "Volume",
     "1h",
-    "1s",
     "1j",
+    "1s",
     "1m",
     "6m",
-    "1a",
+    "1y",
     "ATH",
   ];
+
+  const excludeCoin = (coin) => {
+    if (
+      coin === "usdt" ||
+      coin === "usdc" ||
+      coin === "busd" ||
+      coin === "dai" ||
+      coin === "ust" ||
+      coin === "mim" ||
+      coin === "tusd" ||
+      coin === "usdp" ||
+      coin === "usdn" ||
+      coin === "fei" ||
+      coin === "tribe" ||
+      coin === "gusd" ||
+      coin === "frax" ||
+      coin === "lusd" ||
+      coin === "husd" ||
+      coin === "ousd" ||
+      coin === "xsgd" ||
+      coin === "usdx" ||
+      coin === "eurs"
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <div className="table-container">
       <ul className="table-header">
@@ -39,23 +68,22 @@ const Table = ({ coinsData }) => {
           />
           <ToTop />
         </div>
-        {/* Logique de triage */}
         {tableHeader.map((el) => (
           <li key={el}>
             <input
-              type="radio"
-              name="header-el"
-              id={el}
               defaultChecked={
                 el === orderBy || el === orderBy + "reverse" ? true : false
               }
               onClick={() => {
                 if (orderBy === el) {
-                  setOrderBye(el + "reverse");
+                  setOrderBy(el + "reverse");
                 } else {
-                  setOrderBye(el);
+                  setOrderBy(el);
                 }
               }}
+              type="radio"
+              name="header-el"
+              id={el}
             />
             <label htmlFor={el}>{el}</label>
           </li>
@@ -148,7 +176,9 @@ const Table = ({ coinsData }) => {
                 null;
             }
           })
-          .map((coin, index) => <TableLine coin={coin} index={index} />)}
+          .map((coin, index) => (
+            <TableLine coin={coin} key={coin.id} index={index} />
+          ))}
     </div>
   );
 };

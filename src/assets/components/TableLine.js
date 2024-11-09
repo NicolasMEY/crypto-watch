@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import imgChartIcon from "../imgs/chart-icon.svg";
 import imgInfoIcon from "../imgs/info-icon.svg";
 import StarIcon from "./StarIcon";
+import CoinChart from "./CoinChart";
+import PercentChange from "./PercentChange";
 
 // Fonction pour afficher les coins qui valorisent plusieurs chiffres aprés la virgule et qui peuvent sembler être = à 0 sinon (affichage de centimes de centimes)
 const TableLine = ({ coin, index }) => {
+  const [showChart, setShowChart] = useState(false);
   const priceFormater = (num) => {
     if (Math.round(num).toString().length < 4) {
       return new Intl.NumberFormat("us-US", {
@@ -30,8 +33,15 @@ const TableLine = ({ coin, index }) => {
           <img src={coin.image} height="20" alt="logo" />
         </div>
         <div className="infos">
-          <div className="chart-img">
+          <div
+            className="chart-img"
+            onMouseEnter={() => setShowChart(true)}
+            onMouseLeave={() => setShowChart(false)}
+          >
             <img src={imgChartIcon} alt="chart-icon" />
+            <div className="chart-container" id={coin.name}>
+              {showChart && <CoinChart coinId={coin.id} coinName={coin.name} />}
+            </div>
           </div>
           <h4>{coin.name}</h4>
           <span>- {coin.symbol.toUpperCase()}</span>
