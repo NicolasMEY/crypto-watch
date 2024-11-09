@@ -1,6 +1,7 @@
 import React from "react";
 import imgChartIcon from "../imgs/chart-icon.svg";
 import imgInfoIcon from "../imgs/info-icon.svg";
+import StarIcon from "./StarIcon";
 
 // Fonction pour afficher les coins qui valorisent plusieurs chiffres aprés la virgule et qui peuvent sembler être = à 0 sinon (affichage de centimes de centimes)
 const TableLine = ({ coin, index }) => {
@@ -23,7 +24,7 @@ const TableLine = ({ coin, index }) => {
   return (
     <div className="table-line">
       <div className="infos-container">
-        <span>*</span>
+        <StarIcon coinId={coin.id} />
         <p>{index + 1}</p>
         <div className="img">
           <img src={coin.image} height="20" alt="logo" />
