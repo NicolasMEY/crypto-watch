@@ -10,6 +10,7 @@ const Table = ({ coinsData }) => {
     "Market",
     "Volume",
     "1h",
+    "1s",
     "1j",
     "1m",
     "6m",
